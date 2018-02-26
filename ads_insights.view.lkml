@@ -6,6 +6,13 @@ view: ads_insights {
 
   sql_table_name: {{ _user_attributes["facebook_schema"] }}.ads_insights ;;
 
+  dimension: primary_key {
+    hidden: yes
+    type: string
+    primary_key: yes
+    expression: ${base_primary_key} ;;
+  }
+
   dimension: call_to_action_clicks {
     type: number
     sql: ${TABLE}.call_to_action_clicks ;;

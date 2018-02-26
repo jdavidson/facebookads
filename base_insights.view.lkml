@@ -1,6 +1,23 @@
 view: base_insights {
   extension: required
 
+  dimension: base_primary_key {
+    hidden: yes
+    type: string
+    sql: concat(
+      ${account_id},
+      ${account_name},
+      ${campaign_id},
+      ${campaign_name},
+      ${ad_id},
+      ${ad_name},
+      ${adset_id},
+      ${adset_name},
+      ${date_start_raw},
+      ${date_stop_raw}
+    ) ;;
+  }
+
   measure: total_impressions {
     type: sum
     sql: ${impressions} ;;
@@ -356,17 +373,16 @@ view: base_insights {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-      adset_name,
-      campaign_name,
+      account_id,
       account_name,
+      campaign_id,
+      campaign_name,
+      ad_id,
       ad_name,
-      campaigns.name,
-      campaigns.id,
-      ads.name,
-      ads.source_ad_id,
-      adsets.created_time,
-      adsets.name,
-      adsets.id
+      adset_id,
+      adset_name,
+      date_start_raw,
+      date_stop_raw
     ]
   }
 }

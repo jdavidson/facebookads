@@ -14,23 +14,7 @@ datagroup: facebook_ads_default_datagroup {
 persist_with: facebook_ads_default_datagroup
 
 explore: adcreative {
-  join: ads {
-    type: left_outer
-    sql_on: ${ads.creative_id} = ${adcreative.id} ;;
-    relationship: one_to_one
-  }
-
-  join: adsets {
-    type: left_outer
-    sql_on: ${ads.adset_id} = ${adsets.id} ;;
-    relationship: many_to_one
-  }
-
-  join: campaigns {
-    type: left_outer
-    sql_on: ${ads.campaign_id} = ${campaigns.id} ;;
-    relationship: many_to_one
-  }
+  extension: required
 
   join: adcreative__object_story_spec {
     view_label: "Adcreative: Object Story Spec"
@@ -70,6 +54,8 @@ explore: adcreative {
 }
 
 explore: ads {
+  extension: required
+
   join: adcreative {
     type: left_outer
     sql_on: ${ads.creative_id} = ${adcreative.id} ;;
@@ -215,381 +201,10 @@ explore: ads {
   }
 }
 
-explore: ads_insights {
-  join: campaigns {
-    type: left_outer
-    sql_on: ${ads_insights.campaign_id} = ${campaigns.id} ;;
-    relationship: many_to_one
-  }
-
-  join: adsets {
-    type: left_outer
-    sql_on: ${ads_insights.adset_id} = ${adsets.id} ;;
-    relationship: many_to_one
-  }
-
-  join: ads {
-    type: left_outer
-    sql_on: ${ads_insights.ad_id} = ${ads.id} ;;
-    relationship: many_to_one
-  }
-
-  join: adcreative {
-    type: left_outer
-    sql_on: ${ads.creative_id} = ${adcreative.id} ;;
-    relationship: one_to_one
-  }
-
-  join: ads_insights__video_30_sec_watched_actions {
-    view_label: "Ads Insights: Video 30 Sec Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights.video_30_sec_watched_actions}) as ads_insights__video_30_sec_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p75_watched_actions {
-    view_label: "Ads Insights: Video P75 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights.video_p75_watched_actions}) as ads_insights__video_p75_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p95_watched_actions {
-    view_label: "Ads Insights: Video P95 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights.video_p95_watched_actions}) as ads_insights__video_p95_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__actions {
-    view_label: "Ads Insights: Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights.actions}) as ads_insights__actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__website_ctr {
-    view_label: "Ads Insights: Website Ctr"
-    sql: LEFT JOIN UNNEST(${ads_insights.website_ctr}) as ads_insights__website_ctr ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_15_sec_watched_actions {
-    view_label: "Ads Insights: Video 15 Sec Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights.video_15_sec_watched_actions}) as ads_insights__video_15_sec_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_10_sec_watched_actions {
-    view_label: "Ads Insights: Video 10 Sec Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights.video_10_sec_watched_actions}) as ads_insights__video_10_sec_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__unique_actions {
-    view_label: "Ads Insights: Unique Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights.unique_actions}) as ads_insights__unique_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p25_watched_actions {
-    view_label: "Ads Insights: Video P25 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights.video_p25_watched_actions}) as ads_insights__video_p25_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p100_watched_actions {
-    view_label: "Ads Insights: Video P100 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights.video_p100_watched_actions}) as ads_insights__video_p100_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p50_watched_actions {
-    view_label: "Ads Insights: Video P50 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights.video_p50_watched_actions}) as ads_insights__video_p50_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__relevance_score {
-    view_label: "Ads Insights: Relevance Score"
-    sql: LEFT JOIN UNNEST([${ads_insights.relevance_score}]) as ads_insights__relevance_score ;;
-    relationship: one_to_one
-  }
-}
-
-explore: ads_insights_age_and_gender {
-  join: campaigns {
-    type: left_outer
-    sql_on: ${ads_insights_age_and_gender.campaign_id} = ${campaigns.id} ;;
-    relationship: many_to_one
-  }
-
-  join: ads {
-    type: left_outer
-    sql_on: ${ads_insights_age_and_gender.ad_id} = ${ads.id} ;;
-    relationship: many_to_one
-  }
-
-  join: adcreative {
-    type: left_outer
-    sql_on: ${ads.creative_id} = ${adcreative.id} ;;
-    relationship: one_to_one
-  }
-
-  join: adsets {
-    type: left_outer
-    sql_on: ${ads_insights_age_and_gender.adset_id} = ${adsets.id} ;;
-    relationship: many_to_one
-  }
-
-  join: ads_insights__video_30_sec_watched_actions {
-    view_label: "Ads Insights Age And Gender: Video 30 Sec Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_30_sec_watched_actions}) as ads_insights__video_30_sec_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p75_watched_actions {
-    view_label: "Ads Insights Age And Gender: Video P75 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_p75_watched_actions}) as ads_insights__video_p75_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p95_watched_actions {
-    view_label: "Ads Insights Age And Gender: Video P95 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_p95_watched_actions}) as ads_insights__video_p95_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__actions {
-    view_label: "Ads Insights Age And Gender: Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.actions}) as ads_insights__actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__website_ctr {
-    view_label: "Ads Insights Age And Gender: Website Ctr"
-    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.website_ctr}) as ads_insights__website_ctr ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_15_sec_watched_actions {
-    view_label: "Ads Insights Age And Gender: Video 15 Sec Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_15_sec_watched_actions}) as ads_insights__video_15_sec_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_10_sec_watched_actions {
-    view_label: "Ads Insights Age And Gender: Video 10 Sec Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_10_sec_watched_actions}) as ads_insights__video_10_sec_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__unique_actions {
-    view_label: "Ads Insights Age And Gender: Unique Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.unique_actions}) as ads_insights__unique_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p25_watched_actions {
-    view_label: "Ads Insights Age And Gender: Video P25 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_p25_watched_actions}) as ads_insights__video_p25_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p100_watched_actions {
-    view_label: "Ads Insights Age And Gender: Video P100 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_p100_watched_actions}) as ads_insights__video_p100_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p50_watched_actions {
-    view_label: "Ads Insights Age And Gender: Video P50 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_p50_watched_actions}) as ads_insights__video_p50_watched_actions ;;
-    relationship: one_to_many
-  }
-}
-
-explore: ads_insights_country {
-  join: campaigns {
-    type: left_outer
-    sql_on: ${ads_insights_country.campaign_id} = ${campaigns.id} ;;
-    relationship: many_to_one
-  }
-
-  join: ads {
-    type: left_outer
-    sql_on: ${ads_insights_country.ad_id} = ${ads.id} ;;
-    relationship: many_to_one
-  }
-
-  join: adcreative {
-    type: left_outer
-    sql_on: ${ads.creative_id} = ${adcreative.id} ;;
-    relationship: one_to_one
-  }
-
-  join: adsets {
-    type: left_outer
-    sql_on: ${ads_insights_country.adset_id} = ${adsets.id} ;;
-    relationship: many_to_one
-  }
-
-  join: ads_insights__video_30_sec_watched_actions {
-    view_label: "Ads Insights Country: Video 30 Sec Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_country.video_30_sec_watched_actions}) as ads_insights__video_30_sec_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p75_watched_actions {
-    view_label: "Ads Insights Country: Video P75 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_country.video_p75_watched_actions}) as ads_insights__video_p75_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p95_watched_actions {
-    view_label: "Ads Insights Country: Video P95 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_country.video_p95_watched_actions}) as ads_insights__video_p95_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__actions {
-    view_label: "Ads Insights Country: Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_country.actions}) as ads_insights__actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__website_ctr {
-    view_label: "Ads Insights Country: Website Ctr"
-    sql: LEFT JOIN UNNEST(${ads_insights_country.website_ctr}) as ads_insights__website_ctr ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_15_sec_watched_actions {
-    view_label: "Ads Insights Country: Video 15 Sec Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_country.video_15_sec_watched_actions}) as ads_insights__video_15_sec_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_10_sec_watched_actions {
-    view_label: "Ads Insights Country: Video 10 Sec Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_country.video_10_sec_watched_actions}) as ads_insights__video_10_sec_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__unique_actions {
-    view_label: "Ads Insights Country: Unique Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_country.unique_actions}) as ads_insights__unique_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p25_watched_actions {
-    view_label: "Ads Insights Country: Video P25 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_country.video_p25_watched_actions}) as ads_insights__video_p25_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p100_watched_actions {
-    view_label: "Ads Insights Country: Video P100 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_country.video_p100_watched_actions}) as ads_insights__video_p100_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p50_watched_actions {
-    view_label: "Ads Insights Country: Video P50 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_country.video_p50_watched_actions}) as ads_insights__video_p50_watched_actions ;;
-    relationship: one_to_many
-  }
-}
-
-explore: ads_insights_platform_and_device {
-  join: campaigns {
-    type: left_outer
-    sql_on: ${ads_insights_platform_and_device.campaign_id} = ${campaigns.id} ;;
-    relationship: many_to_one
-  }
-
-  join: ads {
-    type: left_outer
-    sql_on: ${ads_insights_platform_and_device.ad_id} = ${ads.id} ;;
-    relationship: many_to_one
-  }
-
-  join: adcreative {
-    type: left_outer
-    sql_on: ${ads.creative_id} = ${adcreative.id} ;;
-    relationship: one_to_one
-  }
-
-  join: adsets {
-    type: left_outer
-    sql_on: ${ads_insights_platform_and_device.adset_id} = ${adsets.id} ;;
-    relationship: many_to_one
-  }
-
-  join: ads_insights__video_30_sec_watched_actions {
-    view_label: "Ads Insights Platform And Device: Video 30 Sec Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_30_sec_watched_actions}) as ads_insights__video_30_sec_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p75_watched_actions {
-    view_label: "Ads Insights Platform And Device: Video P75 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_p75_watched_actions}) as ads_insights__video_p75_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p95_watched_actions {
-    view_label: "Ads Insights Platform And Device: Video P95 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_p95_watched_actions}) as ads_insights__video_p95_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__actions {
-    view_label: "Ads Insights Platform And Device: Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.actions}) as ads_insights__actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__website_ctr {
-    view_label: "Ads Insights Platform And Device: Website Ctr"
-    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.website_ctr}) as ads_insights__website_ctr ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_15_sec_watched_actions {
-    view_label: "Ads Insights Platform And Device: Video 15 Sec Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_15_sec_watched_actions}) as ads_insights__video_15_sec_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_10_sec_watched_actions {
-    view_label: "Ads Insights Platform And Device: Video 10 Sec Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_10_sec_watched_actions}) as ads_insights__video_10_sec_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__unique_actions {
-    view_label: "Ads Insights Platform And Device: Unique Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.unique_actions}) as ads_insights__unique_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p25_watched_actions {
-    view_label: "Ads Insights Platform And Device: Video P25 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_p25_watched_actions}) as ads_insights__video_p25_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p100_watched_actions {
-    view_label: "Ads Insights Platform And Device: Video P100 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_p100_watched_actions}) as ads_insights__video_p100_watched_actions ;;
-    relationship: one_to_many
-  }
-
-  join: ads_insights__video_p50_watched_actions {
-    view_label: "Ads Insights Platform And Device: Video P50 Watched Actions"
-    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_p50_watched_actions}) as ads_insights__video_p50_watched_actions ;;
-    relationship: one_to_many
-  }
-}
 
 explore: adsets {
+  extension: required
+
   join: campaigns {
     type: left_outer
     sql_on: ${adsets.campaign_id} = ${campaigns.id} ;;
@@ -700,6 +315,8 @@ explore: adsets {
 }
 
 explore: campaigns {
+  extension: required
+
   join: campaigns__ads__data {
     view_label: "Campaigns: Ads Data"
     sql: LEFT JOIN UNNEST(${campaigns__ads.data}) as campaigns__ads__data ;;
@@ -710,5 +327,381 @@ explore: campaigns {
     view_label: "Campaigns: Ads"
     sql: LEFT JOIN UNNEST([${campaigns.ads}]) as campaigns__ads ;;
     relationship: one_to_one
+  }
+}
+
+explore: ads_insights {
+  extends: ["campaigns", "adsets", "ads"]
+
+  join: campaigns {
+    type: left_outer
+    sql_on: ${ads_insights.campaign_id} = ${campaigns.id} ;;
+    relationship: many_to_one
+  }
+
+  join: adsets {
+    type: left_outer
+    sql_on: ${ads_insights.adset_id} = ${adsets.id} ;;
+    relationship: many_to_one
+  }
+
+  join: ads {
+    type: left_outer
+    sql_on: ${ads_insights.ad_id} = ${ads.id} ;;
+    relationship: many_to_one
+  }
+
+  join: ads_insights__video_30_sec_watched_actions {
+    view_label: "Ads Insights: Video 30 Sec Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights.video_30_sec_watched_actions}) as ads_insights__video_30_sec_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p75_watched_actions {
+    view_label: "Ads Insights: Video P75 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights.video_p75_watched_actions}) as ads_insights__video_p75_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p95_watched_actions {
+    view_label: "Ads Insights: Video P95 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights.video_p95_watched_actions}) as ads_insights__video_p95_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__actions {
+    view_label: "Ads Insights: Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights.actions}) as ads_insights__actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__website_ctr {
+    view_label: "Ads Insights: Website Ctr"
+    sql: LEFT JOIN UNNEST(${ads_insights.website_ctr}) as ads_insights__website_ctr ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_15_sec_watched_actions {
+    view_label: "Ads Insights: Video 15 Sec Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights.video_15_sec_watched_actions}) as ads_insights__video_15_sec_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_10_sec_watched_actions {
+    view_label: "Ads Insights: Video 10 Sec Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights.video_10_sec_watched_actions}) as ads_insights__video_10_sec_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__unique_actions {
+    view_label: "Ads Insights: Unique Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights.unique_actions}) as ads_insights__unique_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p25_watched_actions {
+    view_label: "Ads Insights: Video P25 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights.video_p25_watched_actions}) as ads_insights__video_p25_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p100_watched_actions {
+    view_label: "Ads Insights: Video P100 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights.video_p100_watched_actions}) as ads_insights__video_p100_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p50_watched_actions {
+    view_label: "Ads Insights: Video P50 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights.video_p50_watched_actions}) as ads_insights__video_p50_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__relevance_score {
+    view_label: "Ads Insights: Relevance Score"
+    sql: LEFT JOIN UNNEST([${ads_insights.relevance_score}]) as ads_insights__relevance_score ;;
+    relationship: one_to_one
+  }
+}
+
+explore: ads_insights_age_and_gender {
+  extends: ["campaigns", "adsets", "ads"]
+
+  join: campaigns {
+    type: left_outer
+    sql_on: ${ads_insights_age_and_gender.campaign_id} = ${campaigns.id} ;;
+    relationship: many_to_one
+  }
+
+  join: ads {
+    type: left_outer
+    sql_on: ${ads_insights_age_and_gender.ad_id} = ${ads.id} ;;
+    relationship: many_to_one
+  }
+
+  join: adcreative {
+    type: left_outer
+    sql_on: ${ads.creative_id} = ${adcreative.id} ;;
+    relationship: one_to_one
+  }
+
+  join: adsets {
+    type: left_outer
+    sql_on: ${ads_insights_age_and_gender.adset_id} = ${adsets.id} ;;
+    relationship: many_to_one
+  }
+
+  join: ads_insights__video_30_sec_watched_actions {
+    view_label: "Ads Insights Age And Gender: Video 30 Sec Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_30_sec_watched_actions}) as ads_insights__video_30_sec_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p75_watched_actions {
+    view_label: "Ads Insights Age And Gender: Video P75 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_p75_watched_actions}) as ads_insights__video_p75_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p95_watched_actions {
+    view_label: "Ads Insights Age And Gender: Video P95 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_p95_watched_actions}) as ads_insights__video_p95_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__actions {
+    view_label: "Ads Insights Age And Gender: Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.actions}) as ads_insights__actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__website_ctr {
+    view_label: "Ads Insights Age And Gender: Website Ctr"
+    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.website_ctr}) as ads_insights__website_ctr ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_15_sec_watched_actions {
+    view_label: "Ads Insights Age And Gender: Video 15 Sec Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_15_sec_watched_actions}) as ads_insights__video_15_sec_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_10_sec_watched_actions {
+    view_label: "Ads Insights Age And Gender: Video 10 Sec Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_10_sec_watched_actions}) as ads_insights__video_10_sec_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__unique_actions {
+    view_label: "Ads Insights Age And Gender: Unique Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.unique_actions}) as ads_insights__unique_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p25_watched_actions {
+    view_label: "Ads Insights Age And Gender: Video P25 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_p25_watched_actions}) as ads_insights__video_p25_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p100_watched_actions {
+    view_label: "Ads Insights Age And Gender: Video P100 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_p100_watched_actions}) as ads_insights__video_p100_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p50_watched_actions {
+    view_label: "Ads Insights Age And Gender: Video P50 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_age_and_gender.video_p50_watched_actions}) as ads_insights__video_p50_watched_actions ;;
+    relationship: one_to_many
+  }
+}
+
+explore: ads_insights_country {
+  extends: ["campaigns", "adsets", "ads"]
+
+  join: campaigns {
+    type: left_outer
+    sql_on: ${ads_insights_country.campaign_id} = ${campaigns.id} ;;
+    relationship: many_to_one
+  }
+
+  join: ads {
+    type: left_outer
+    sql_on: ${ads_insights_country.ad_id} = ${ads.id} ;;
+    relationship: many_to_one
+  }
+
+  join: adcreative {
+    type: left_outer
+    sql_on: ${ads.creative_id} = ${adcreative.id} ;;
+    relationship: one_to_one
+  }
+
+  join: adsets {
+    type: left_outer
+    sql_on: ${ads_insights_country.adset_id} = ${adsets.id} ;;
+    relationship: many_to_one
+  }
+
+  join: ads_insights__video_30_sec_watched_actions {
+    view_label: "Ads Insights Country: Video 30 Sec Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_country.video_30_sec_watched_actions}) as ads_insights__video_30_sec_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p75_watched_actions {
+    view_label: "Ads Insights Country: Video P75 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_country.video_p75_watched_actions}) as ads_insights__video_p75_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p95_watched_actions {
+    view_label: "Ads Insights Country: Video P95 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_country.video_p95_watched_actions}) as ads_insights__video_p95_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__actions {
+    view_label: "Ads Insights Country: Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_country.actions}) as ads_insights__actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__website_ctr {
+    view_label: "Ads Insights Country: Website Ctr"
+    sql: LEFT JOIN UNNEST(${ads_insights_country.website_ctr}) as ads_insights__website_ctr ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_15_sec_watched_actions {
+    view_label: "Ads Insights Country: Video 15 Sec Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_country.video_15_sec_watched_actions}) as ads_insights__video_15_sec_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_10_sec_watched_actions {
+    view_label: "Ads Insights Country: Video 10 Sec Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_country.video_10_sec_watched_actions}) as ads_insights__video_10_sec_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__unique_actions {
+    view_label: "Ads Insights Country: Unique Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_country.unique_actions}) as ads_insights__unique_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p25_watched_actions {
+    view_label: "Ads Insights Country: Video P25 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_country.video_p25_watched_actions}) as ads_insights__video_p25_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p100_watched_actions {
+    view_label: "Ads Insights Country: Video P100 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_country.video_p100_watched_actions}) as ads_insights__video_p100_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p50_watched_actions {
+    view_label: "Ads Insights Country: Video P50 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_country.video_p50_watched_actions}) as ads_insights__video_p50_watched_actions ;;
+    relationship: one_to_many
+  }
+}
+
+explore: ads_insights_platform_and_device {
+  extends: ["campaigns", "adsets", "ads"]
+
+  join: campaigns {
+    type: left_outer
+    sql_on: ${ads_insights_platform_and_device.campaign_id} = ${campaigns.id} ;;
+    relationship: many_to_one
+  }
+
+  join: ads {
+    type: left_outer
+    sql_on: ${ads_insights_platform_and_device.ad_id} = ${ads.id} ;;
+    relationship: many_to_one
+  }
+
+  join: adcreative {
+    type: left_outer
+    sql_on: ${ads.creative_id} = ${adcreative.id} ;;
+    relationship: one_to_one
+  }
+
+  join: adsets {
+    type: left_outer
+    sql_on: ${ads_insights_platform_and_device.adset_id} = ${adsets.id} ;;
+    relationship: many_to_one
+  }
+
+  join: ads_insights__video_30_sec_watched_actions {
+    view_label: "Ads Insights Platform And Device: Video 30 Sec Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_30_sec_watched_actions}) as ads_insights__video_30_sec_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p75_watched_actions {
+    view_label: "Ads Insights Platform And Device: Video P75 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_p75_watched_actions}) as ads_insights__video_p75_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p95_watched_actions {
+    view_label: "Ads Insights Platform And Device: Video P95 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_p95_watched_actions}) as ads_insights__video_p95_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__actions {
+    view_label: "Ads Insights Platform And Device: Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.actions}) as ads_insights__actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__website_ctr {
+    view_label: "Ads Insights Platform And Device: Website Ctr"
+    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.website_ctr}) as ads_insights__website_ctr ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_15_sec_watched_actions {
+    view_label: "Ads Insights Platform And Device: Video 15 Sec Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_15_sec_watched_actions}) as ads_insights__video_15_sec_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_10_sec_watched_actions {
+    view_label: "Ads Insights Platform And Device: Video 10 Sec Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_10_sec_watched_actions}) as ads_insights__video_10_sec_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__unique_actions {
+    view_label: "Ads Insights Platform And Device: Unique Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.unique_actions}) as ads_insights__unique_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p25_watched_actions {
+    view_label: "Ads Insights Platform And Device: Video P25 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_p25_watched_actions}) as ads_insights__video_p25_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p100_watched_actions {
+    view_label: "Ads Insights Platform And Device: Video P100 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_p100_watched_actions}) as ads_insights__video_p100_watched_actions ;;
+    relationship: one_to_many
+  }
+
+  join: ads_insights__video_p50_watched_actions {
+    view_label: "Ads Insights Platform And Device: Video P50 Watched Actions"
+    sql: LEFT JOIN UNNEST(${ads_insights_platform_and_device.video_p50_watched_actions}) as ads_insights__video_p50_watched_actions ;;
+    relationship: one_to_many
   }
 }
