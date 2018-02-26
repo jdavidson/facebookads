@@ -1,8 +1,9 @@
 include: "stitch.view.lkml"
 include: "base_insights.view.lkml"
+include: "base.view.lkml"
 
 view: ads_insights_platform_and_device {
-  extends: ["stitch", "base_insights"]
+  extends: ["stitch", "base_insights", "base"]
 
   sql_table_name: {{ _user_attributes["facebook_schema"] }}.ads_insights_platform_and_device ;;
 
